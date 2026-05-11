@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Booking App</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-brand">
+      <div class="logo">📅</div>
+      BookingApp
+    </div>
+    <nav class="header-nav">
+      <a href="index.html"><button class="btn-nav">Trang đặt lịch</button></a>
+      <button class="btn-nav active">Admin</button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="page-title">Quản lý lịch hẹn</div>
+    <div class="page-sub">Tạo slot trống và xem danh sách booking từ khách hàng</div>
+
+    <!-- Stats -->
+    <div class="stats-row" id="statsRow"></div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="slots">Slot trống</button>
+      <button class="tab-btn" data-tab="bookings">Lịch hẹn đã book</button>
+      <button class="tab-btn" data-tab="calendar">Lịch tổng quan</button>
+    </div>
+
+    <!-- TAB: Slots -->
+    <div id="tab-slots">
+      <div class="card mb-16">
+        <div class="section-header">
+          <div class="section-title">Thêm slot mới</div>
+        </div>
+        <form id="addSlotForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Ngày</label>
+              <input type="date" id="slotDate" required />
+            </div>
+            <div class="form-group">
+              <label>Giờ bắt đầu</label>
+              <input type="time" id="slotTime" required />
+            </div>
+            <div class="form-group">
+              <label>Thời lượng (phút)</label>
+              <select id="slotDuration">
+                <option value="30">30 phút</option>
+                <option value="60" selected>60 phút</option>
+                <option value="90">90 phút</option>
+                <option value="120">120 phút</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Danh mục / Tag</label>
+              <input type="text" id="slotCategory" placeholder="VD: Tư vấn SEO" list="categoryList" required />
+              <datalist id="categoryList"></datalist>
+            </div>
+            <div class="form-group">
+              <label>Màu sắc</label>
+              <input type="color" id="slotColor" value="#6366f1" style="height:41px;cursor:pointer;" />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">+ Thêm slot</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Filter -->
+      <div class="section-header">
+        <div class="section-title">Danh sách slot</div>
+        <div id="slotFilterBar" class="filter-bar" style="margin:0"></div>
+      </div>
+
+      <div id="slotList" class="slot-list mt-8"></div>
+    </div>
+
+    <!-- TAB: Bookings -->
+    <div id="tab-bookings" class="hidden">
+      <div class="section-header">
+        <div class="section-title">Lịch hẹn đã xác nhận</div>
+        <div id="bookingFilterBar" class="filter-bar" style="margin:0"></div>
+      </div>
+      <div id="bookingList" class="booking-list mt-8"></div>
+    </div>
+
+    <!-- TAB: Calendar -->
+    <div id="tab-calendar" class="hidden">
+      <div class="card">
+        <div class="tabs" style="margin-bottom:20px">
+          <button class="tab-btn active" data-calview="week">Tuần</button>
+          <button class="tab-btn" data-calview="month">Tháng</button>
+        </div>
+        <div id="adminCalendar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Slot Confirm Modal -->
+  <div class="modal-overlay" id="deleteSlotModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Xoá slot?</div>
+        <button class="modal-close" onclick="closeModal('deleteSlotModal')">✕</button>
+      </div>
+      <p class="text-muted">Slot này sẽ bị xoá vĩnh viễn. Nếu đã có booking, booking đó cũng sẽ bị huỷ.</p>
+      <div class="form-actions mt-16">
+        <button class="btn btn-ghost" onclick="closeModal('deleteSlotModal')">Huỷ</button>
+        <button class="btn btn-danger" id="confirmDeleteSlot">Xoá</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

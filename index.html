@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đặt lịch hẹn</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-brand">
+      <div class="logo">📅</div>
+      BookingApp
+    </div>
+    <nav class="header-nav">
+      <button class="btn-nav active">Đặt lịch</button>
+      <a href="admin.html"><button class="btn-nav">Admin</button></a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="booking-hero">
+      <h1>Đặt lịch hẹn</h1>
+      <p>Chọn thời gian phù hợp và điền thông tin — chúng tôi sẽ xác nhận ngay.</p>
+    </div>
+
+    <!-- Calendar view switch -->
+    <div class="card mb-16">
+      <div class="cal-header" style="margin-bottom:12px">
+        <div class="tabs" style="margin:0">
+          <button class="tab-btn active" data-calview="week">Tuần</button>
+          <button class="tab-btn" data-calview="month">Tháng</button>
+        </div>
+        <div id="bookingFilterBar" class="filter-bar" style="margin:0"></div>
+      </div>
+      <div id="bookingCalendar"></div>
+    </div>
+
+    <!-- Available slot list -->
+    <div class="section-header">
+      <div class="section-title">Slot trống có thể đặt</div>
+      <span id="slotCount" class="badge badge-success"></span>
+    </div>
+    <div id="availableSlots" class="slot-list mt-8"></div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Xác nhận đặt lịch</div>
+        <button class="modal-close" onclick="closeModal('bookingModal')">✕</button>
+      </div>
+      <div id="selectedSlotInfo" class="card" style="background:var(--surface2);box-shadow:none;padding:14px;margin-bottom:20px"></div>
+      <form id="bookingForm">
+        <div class="form-grid" style="grid-template-columns:1fr">
+          <div class="form-group">
+            <label>Họ và tên *</label>
+            <input type="text" id="clientName" placeholder="Nguyễn Văn A" required />
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" id="clientEmail" placeholder="email@example.com" required />
+          </div>
+          <div class="form-group">
+            <label>Ghi chú (tuỳ chọn)</label>
+            <textarea id="clientNotes" placeholder="Nội dung bạn muốn tư vấn..."></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="closeModal('bookingModal')">Huỷ</button>
+          <button type="submit" class="btn btn-success">Xác nhận đặt lịch</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal" style="text-align:center">
+      <div class="confirm-box" style="border:none;background:transparent">
+        <div class="confirm-icon">🎉</div>
+        <div class="confirm-title">Đặt lịch thành công!</div>
+        <div class="confirm-sub" id="successDetail" style="margin-top:8px"></div>
+      </div>
+      <button class="btn btn-primary" style="margin-top:20px;width:100%" onclick="closeModal('successModal')">Đóng</button>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/booking.js"></script>
+</body>
+</html>
