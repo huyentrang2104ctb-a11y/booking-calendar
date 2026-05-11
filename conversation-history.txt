@@ -1,0 +1,118 @@
+LỊCH SỬ TRÒ CHUYỆN VỚI CLAUDE CODE
+Dự án: Booking Calendar — Mini tool đặt lịch hẹn cá nhân
+Ngày: 11/05/2026
+Công cụ: Claude Code (VSCode Extension) — claude-sonnet-4-6
+============================================================
+
+--- YÊU CẦU BAN ĐẦU ---
+
+User: Xây dựng 1 mini tool bất kì nằm trên web.
+- Có tính năng sử dụng được
+- Có giao diện
+- Chưa cần phải hosting
+Hãy đặt câu hỏi để có input làm web app đặt lịch cá nhân.
+
+--- THU THẬP YÊU CẦU ---
+
+Claude hỏi 4 nhóm câu hỏi:
+1. Mục đích app → User chọn: Đặt lịch hẹn với khách (như Calendly)
+2. Tính năng → User chọn: Thêm/xóa sự kiện, Hiển thị tuần/tháng, Lọc theo tag
+3. Giao diện → User chọn: Hiện đại / Colorful
+4. Lưu trữ → User muốn: Deploy lên GitHub và có link
+
+Hỏi thêm:
+5. Quyền truy cập → Ai có link đều book được
+6. Tech stack → HTML/CSS/JS thuần
+
+--- THIẾT KẾ GIẢI PHÁP ---
+
+Claude đề xuất kiến trúc:
+- index.html  : Trang booking public cho khách
+- admin.html  : Trang quản lý cho chủ lịch
+- Lưu trữ    : LocalStorage (không cần backend)
+- Deploy      : GitHub Pages
+
+--- QUÁ TRÌNH BUILD ---
+
+Bước 1: Tạo cấu trúc thư mục
+  seongon/booking-app/
+  ├── index.html
+  ├── admin.html
+  ├── css/style.css
+  └── js/
+      ├── app.js
+      ├── booking.js
+      └── admin.js
+
+Bước 2: Viết css/style.css
+  - Giao diện colorful, modern, card-based
+  - CSS variables cho màu sắc nhất quán
+  - Component: header, card, button, form, calendar grid,
+    modal, toast notification, badge, filter chip
+
+Bước 3: Viết js/app.js (Data layer)
+  - DB object: CRUD slots và bookings qua localStorage
+  - Hàm seed dữ liệu mẫu 7 ngày tới khi lần đầu mở
+  - Utilities: uid(), fmtDate(), isPast(), toast(), openModal()
+  - Helper: getWeekDates(), hằng số tiếng Việt
+
+Bước 4: Viết admin.html + js/admin.js
+  - Form thêm slot mới (ngày, giờ, thời lượng, danh mục, màu)
+  - Danh sách slot với filter theo danh mục
+  - Danh sách booking đã nhận dạng card
+  - Calendar tổng quan tuần/tháng
+  - Stats bar: slot trống / đã book / tổng
+
+Bước 5: Viết index.html + js/booking.js
+  - Hero banner gradient
+  - Calendar tuần/tháng hiển thị slot trống
+  - Filter bar theo danh mục
+  - Danh sách slot có thể đặt
+  - Modal xác nhận: điền tên, email, ghi chú
+  - Modal thành công sau khi book
+
+--- TEST LOCAL ---
+
+User mở file index.html trực tiếp trên trình duyệt → OK
+
+--- PUSH LÊN GITHUB ---
+
+Vấn đề gặp phải:
+1. Thư mục booking-app nằm trong repo cha (seongon-claude-code-course)
+   → Giải pháp: git init riêng trong booking-app
+
+2. Push lần đầu báo lỗi "Device not configured"
+   → Giải pháp: Tạo Personal Access Token trên GitHub
+   → Dùng token trong remote URL để xác thực
+
+3. GitHub Pages tab Branch dropdown hiện "None"
+   → Nguyên nhân: git init chưa chạy nên repo trống
+   → Giải pháp: Claude chạy lại toàn bộ git init → add → commit → push
+
+Lệnh đã chạy thành công:
+  git init
+  git add .
+  git commit -m "Add personal booking app (HTML/CSS/JS)"
+  git branch -M main
+  git remote add origin https://github.com/huyentrang2104ctb-a11y/booking-calendar.git
+  git push -u origin main
+
+--- KẾT QUẢ ---
+
+GitHub Repo : https://github.com/huyentrang2104ctb-a11y/booking-calendar
+Live Demo   : https://huyentrang2104ctb-a11y.github.io/booking-calendar/
+Admin Panel : https://huyentrang2104ctb-a11y.github.io/booking-calendar/admin.html
+
+--- FILE ĐÃ TẠO ---
+
+6 files, tổng 1,678 dòng code:
+- index.html          (trang booking khách)
+- admin.html          (trang admin)
+- css/style.css       (370+ dòng CSS)
+- js/app.js           (120 dòng - data layer)
+- js/booking.js       (180 dòng - logic booking)
+- js/admin.js         (230 dòng - logic admin)
+- README.md           (hướng dẫn sử dụng)
+
+============================================================
+Tạo bằng Claude Code — SEOngon Claude Code Course
