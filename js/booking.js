@@ -121,15 +121,8 @@ function renderBookingCell(dateStr, timeStr) {
     return `<div class="time-cell"><div class="slot-chip blocked-chip" title="${escHtml(info.note||'Không có sẵn')}">Bận</div></div>`;
   }
   if (info.type === 'booked') {
-    const b   = info.booking;
-    const cat = APP_CONFIG.categories.find(c => c.name === b.category);
-    const clr = cat ? cat.color : '#6366f1';
     return `<div class="time-cell">
-      <div class="slot-chip booked"
-           style="border-color:${clr};color:${clr};background:${clr}18"
-           title="${escHtml(b.client_name)} — ${escHtml(b.category)}">
-        ${escHtml(b.category)}<br><small style="opacity:.7">Đã đặt</small>
-      </div>
+      <div class="slot-chip booked">Đã đặt</div>
     </div>`;
   }
   // available — empty cell = clickable
