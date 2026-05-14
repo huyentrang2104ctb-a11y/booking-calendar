@@ -427,6 +427,15 @@ a { color: inherit; text-decoration: none; }
 .slot-chip.booked    { background: #eef2ff; color: var(--primary); border: 1.5px solid #c7d2fe; }
 .slot-chip.past      { background: var(--surface2); color: var(--text-muted); border: 1.5px solid var(--border); opacity: .6; }
 
+/* Blocked chip (admin-defined unavailable time) */
+.slot-chip.blocked-chip {
+  background: #f1f5f9 !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #94a3b8 !important;
+  cursor: default !important;
+}
+.slot-chip.blocked-chip:hover { transform: none !important; box-shadow: none !important; }
+
 /* ===== SLOT LIST (Admin) ===== */
 .slot-list { display: flex; flex-direction: column; gap: 8px; }
 
@@ -676,6 +685,128 @@ a { color: inherit; text-decoration: none; }
 .confirm-icon { font-size: 2.5rem; margin-bottom: 10px; }
 .confirm-title { font-size: 1.1rem; font-weight: 700; color: var(--success); margin-bottom: 6px; }
 .confirm-sub { font-size: .875rem; color: #059669; }
+
+/* ===== WEEK CALENDAR HEADER (fix: was missing styles) ===== */
+.cal-week > div:not(.time-row) {
+  background: var(--surface2);
+  padding: 8px 4px;
+  text-align: center;
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  border-bottom: 1.5px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+}
+.cal-week > div.today-col {
+  background: #eef2ff;
+  color: var(--primary);
+}
+
+/* ===== CELL STATES (new model: empty = available) ===== */
+.time-cell.cell-available {
+  cursor: pointer;
+  background: #f0fdf4;
+}
+.time-cell.cell-available:hover {
+  background: #bbf7d0 !important;
+}
+.plus-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  color: #16a34a;
+  font-size: 1.1rem;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity .12s;
+  pointer-events: none;
+}
+.time-cell.cell-available:hover .plus-label { opacity: 1; }
+
+.time-cell.cell-off {
+  background: var(--surface2) !important;
+  cursor: default;
+  opacity: 0.45;
+}
+.time-cell.cell-off:hover { background: var(--surface2) !important; }
+
+/* ===== AVAILABLE SLOT TIME BUTTONS ===== */
+.slot-date-group { margin-bottom: 22px; }
+
+.slot-date-label {
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 10px;
+}
+
+.slot-times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.slot-time-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1.5px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  font-size: .875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+}
+.slot-time-btn:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(99,102,241,.3);
+}
+
+/* ===== CALENDAR LEGEND ===== */
+.slot-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: .75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-left: 6px;
+}
+.available-legend { background: #ecfdf5; color: #059669; border: 1.5px solid #a7f3d0; }
+.booked-legend    { background: #eef2ff; color: var(--primary); border: 1.5px solid #c7d2fe; }
+.blocked-legend   { background: #f1f5f9; color: #94a3b8; border: 1.5px solid #cbd5e1; }
+
+/* ===== LOADING SPINNER ===== */
+.loading-state {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  color: var(--text-muted);
+  gap: 12px;
+  font-size: .95rem;
+}
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 2.5px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* ===== UTILITY ===== */
 .mt-4  { margin-top: 4px; }
