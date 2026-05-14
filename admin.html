@@ -7,7 +7,28 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="header">
+  <!-- Admin Login Gate -->
+  <div id="adminGate" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px">
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:16px;box-shadow:0 8px 32px rgba(99,102,241,.16);padding:36px 32px;width:100%;max-width:380px;text-align:center">
+      <div style="font-size:2.5rem;margin-bottom:12px">🔐</div>
+      <div style="font-size:1.2rem;font-weight:700;margin-bottom:6px;color:var(--text)">Trang Admin</div>
+      <div style="font-size:.875rem;color:var(--text-muted);margin-bottom:24px">Nhập mã bảo mật để tiếp tục</div>
+      <form id="gateForm" onsubmit="checkAdminPassword(event)">
+        <div style="position:relative;margin-bottom:12px">
+          <input id="gateInput" type="password" placeholder="Nhập mã bảo mật"
+            style="width:100%;padding:11px 44px 11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:1rem;color:var(--text);background:var(--surface);outline:none;transition:border-color .2s"
+            onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'" />
+          <button type="button" id="toggleGatePass"
+            style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:.9rem"
+            onclick="toggleGateVisibility()">👁</button>
+        </div>
+        <div id="gateError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:10px">Mã bảo mật không đúng. Vui lòng thử lại.</div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Xác nhận</button>
+      </form>
+    </div>
+  </div>
+
+  <header class="header" id="adminHeader" style="display:none">
     <div class="header-brand">
       <div class="logo">📅</div>
       BookingApp
@@ -18,7 +39,7 @@
     </nav>
   </header>
 
-  <div class="container">
+  <div class="container" id="adminContent" style="display:none">
     <div class="page-title">Quản lý lịch hẹn</div>
     <div class="page-sub">Chặn giờ bận và xem toàn bộ booking từ khách hàng</div>
 

@@ -7,6 +7,9 @@
 const SUPABASE_URL = 'https://kcqfyskgxfdajwedjwyc.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_tEMbZLDesMy68rXc_0TFrA_8eFZF6JP';
 
+// ===== ADMIN PASSWORD =====
+const ADMIN_PASSWORD = 'seongon2024';
+
 // ===== APP CONFIG =====
 const APP_CONFIG = {
   workingHours: { start: 8, end: 17 },   // 8:00 → 17:00 (slot cuối kết thúc lúc 17:00)

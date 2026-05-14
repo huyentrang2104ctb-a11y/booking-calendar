@@ -1,3 +1,40 @@
+// ===== ADMIN AUTH GATE =====
+(function() {
+  const authenticated = sessionStorage.getItem('adminAuth') === '1';
+  if (authenticated) {
+    showAdminDashboard();
+  } else {
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('adminGate').style.display = 'flex';
+    });
+  }
+})();
+
+function checkAdminPassword(e) {
+  e.preventDefault();
+  const input = document.getElementById('gateInput').value;
+  if (input === ADMIN_PASSWORD) {
+    sessionStorage.setItem('adminAuth', '1');
+    document.getElementById('adminGate').style.display = 'none';
+    showAdminDashboard();
+    initAdmin();
+  } else {
+    document.getElementById('gateError').style.display = 'block';
+    document.getElementById('gateInput').value = '';
+    document.getElementById('gateInput').focus();
+  }
+}
+
+function toggleGateVisibility() {
+  const inp = document.getElementById('gateInput');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+function showAdminDashboard() {
+  document.getElementById('adminHeader').style.display = 'flex';
+  document.getElementById('adminContent').style.display = 'block';
+}
+
 // ===== ADMIN PAGE =====
 let calView = 'week';
 let calDate = new Date();
@@ -8,16 +45,21 @@ let _bookings     = [];
 let _blockedTimes = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
-  if (!isConfigured()) { showConfigError(); return; }
+  if (sessionStorage.getItem('adminAuth') === '1') {
+    if (!isConfigured()) { showConfigError(); return; }
+    await initAdmin();
+  }
+});
 
+async function initAdmin() {
+  if (!isConfigured()) { showConfigError(); return; }
   initTabs();
   initCalViewTabs();
   initBlockForm();
   initDeleteModal();
-
   await loadData();
   renderAll();
-});
+}
 
 // ===== DATA =====
 async function loadData() {
